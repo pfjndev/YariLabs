@@ -174,7 +174,7 @@
   },
 
   // Post-create commands
-  "postCreateCommand": "/bin/bash .devcontainer/setup.sh",
+  // "postCreateCommand": "/bin/bash .devcontainer/setup.sh",
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally
   "remoteUser": "vscode",
