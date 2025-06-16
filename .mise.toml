@@ -25,7 +25,7 @@ PGUSER = "vscode"
 PGHOST = "localhost"
 PGPORT = "5432"
 
-[aliases]
+[alias]
 # Ruby aliases
 r = "ruby"
 ra = "rails"
