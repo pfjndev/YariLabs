@@ -1,0 +1,52 @@
+name: Test Codespace Configuration
+
+on:
+  push:
+    paths:
+      - '.devcontainer/**'
+      - '.github/workflows/test-codespace.yml'
+  pull_request:
+    paths:
+      - '.devcontainer/**'
+      - '.github/workflows/test-codespace.yml'
+
+jobs:
+  test-devcontainer:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Build dev container
+      uses: devcontainers/ci@v0.3
+      with:
+        imageName: ruby-rails-devcontainer
+        configFile: .devcontainer/devcontainer.json
+        runCmd: |
+          # Test Ruby installation
+          ruby --version
+          
+          # Test Rails installation  
+          rails --version
+          
+          # Test mise installation
+          mise --version
+          
+          # Test Node.js installation
+          node --version
+          npm --version
+          
+          # Test PostgreSQL
+          pg_isready
+          
+          # Test Redis
+          redis-cli ping
+          
+          # Test essential gems
+          gem list | grep -E "(rails|bundler|rspec|rubocop)"
+          
+          echo "✅ All tests passed!"

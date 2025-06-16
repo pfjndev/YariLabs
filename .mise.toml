@@ -1,0 +1,57 @@
+[tools]
+ruby = "latest"
+node = "lts"
+python = "latest"
+
+[env]
+# Rails environment settings
+RAILS_ENV = "development"
+RACK_ENV = "development"
+RAILS_LOG_LEVEL = "debug"
+
+# Editor settings
+EDITOR = "code"
+VISUAL = "code"
+
+# Ruby settings
+BUNDLE_PATH = "vendor/bundle"
+BUNDLE_BIN = "vendor/bundle/bin"
+
+# Node.js settings
+NODE_ENV = "development"
+
+# PostgreSQL settings
+PGUSER = "vscode"
+PGHOST = "localhost"
+PGPORT = "5432"
+
+[aliases]
+# Ruby aliases
+r = "ruby"
+ra = "rails"
+be = "bundle exec"
+
+[tasks.dev]
+description = "Start development server"
+run = "bundle exec rails server"
+
+[tasks.console]
+description = "Start Rails console"
+run = "bundle exec rails console"
+
+[tasks.test]
+description = "Run tests"
+run = "bundle exec rspec"
+
+[tasks.lint]
+description = "Run code linter"
+run = "bundle exec rubocop"
+
+[tasks.setup]
+description = "Setup the application"
+run = [
+  "bundle install",
+  "rails db:create",
+  "rails db:migrate",
+  "rails db:seed"
+]

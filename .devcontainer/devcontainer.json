@@ -1,0 +1,189 @@
+{
+  "name": "Ruby on Rails Development",
+  "image": "mcr.microsoft.com/devcontainers/ruby:3.3-bookworm",
+  
+  // Features to install
+  "features": {
+    // Install mise-en-place for version management
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/git-lfs:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    // Add Docker for potential containerization needs
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    // Add common development tools
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "installOhMyZshConfig": true,
+      "upgradePackages": true
+    }
+  },
+
+  // Configure the container
+  "containerEnv": {
+    "RAILS_ENV": "development",
+    "RACK_ENV": "development"
+  },
+
+  // Forward common Rails ports
+  "forwardPorts": [3000, 5432, 6379, 1025],
+  "portsAttributes": {
+    "3000": {
+      "label": "Rails Server",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    },
+    "6379": {
+      "label": "Redis",
+      "onAutoForward": "silent"
+    },
+    "1025": {
+      "label": "MailCatcher",
+      "onAutoForward": "silent"
+    }
+  },
+
+  // VS Code customizations
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Ruby and Rails extensions
+        "shopify.ruby-lsp",
+        "koichisasada.vscode-rdbg",
+        "bradlc.vscode-tailwindcss",
+        
+        // General development extensions
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml",
+        "ms-vscode.vscode-typescript-next",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-eslint",
+        
+        // Git and GitHub extensions
+        "github.vscode-pull-request-github",
+        "github.copilot",
+        "github.copilot-chat",
+        
+        // Database and testing
+        "ms-vscode.vscode-sqlite",
+        "hbenl.vscode-test-explorer",
+        
+        // Docker and containers
+        "ms-vscode-remote.remote-containers",
+        
+        // Productivity extensions
+        "gruntfuggly.todo-tree",
+        "wayou.vscode-todo-highlight",
+        "streetsidesoftware.code-spell-checker"
+      ],
+      
+      "settings": {
+        // Ruby LSP configuration
+        "ruby.lsp.enabledFeatures": {
+          "codeActions": true,
+          "diagnostics": true,
+          "documentHighlights": true,
+          "documentLink": true,
+          "documentSymbols": true,
+          "foldingRanges": true,
+          "formatting": true,
+          "hover": true,
+          "inlayHint": true,
+          "onTypeFormatting": true,
+          "selectionRanges": true,
+          "semanticHighlighting": true,
+          "completion": true,
+          "codeLens": true,
+          "definition": true,
+          "workspaceSymbol": true,
+          "signatureHelp": true,
+          "typeHierarchy": true
+        },
+        
+        // File associations
+        "files.associations": {
+          "*.rb": "ruby",
+          "*.rake": "ruby",
+          "Gemfile": "ruby",
+          "Rakefile": "ruby",
+          "*.ru": "ruby",
+          "*.erb": "erb",
+          "*.haml": "haml"
+        },
+        
+        // Editor settings
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": "explicit"
+        },
+        
+        // Ruby specific settings
+        "[ruby]": {
+          "editor.defaultFormatter": "Shopify.ruby-lsp",
+          "editor.formatOnSave": true,
+          "editor.tabSize": 2,
+          "editor.insertSpaces": true,
+          "editor.rulers": [120],
+          "editor.semanticHighlighting.enabled": true
+        },
+        
+        // Terminal settings
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/usr/bin/zsh"
+          }
+        },
+        
+        // Git settings
+        "git.autofetch": true,
+        "git.enableSmartCommit": true,
+        "git.confirmSync": false,
+        
+        // Search settings
+        "search.exclude": {
+          "**/node_modules": true,
+          "**/tmp": true,
+          "**/log": true,
+          "**/.git": true,
+          "**/coverage": true,
+          "**/vendor": true
+        },
+        
+        // File watcher settings
+        "files.watcherExclude": {
+          "**/tmp/**": true,
+          "**/log/**": true,
+          "**/node_modules/**": true,
+          "**/vendor/**": true,
+          "**/.git/objects/**": true,
+          "**/.git/subtree-cache/**": true
+        }
+      }
+    }
+  },
+
+  // Post-create commands
+  "postCreateCommand": "/bin/bash .devcontainer/setup.sh",
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally
+  "remoteUser": "vscode",
+  
+  // Uncomment to connect as root instead
+  // "remoteUser": "root",
+  
+  // Mount the local Docker socket if using docker-in-docker
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
+  ]
+}
