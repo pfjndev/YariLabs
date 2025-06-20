@@ -1,79 +1,33 @@
-require 'spec_helper'
-require_relative '../src/acronym_game'
-
-=begin 
-
-- Implement a function called make Acronym that returns the first letters of each word in a passed in string.
-
-- Make sure the letters returned are uppercase.
-
-- If the value passed in is not a string return "Not a string".
-
-- If the value passed in is a string which contains characters other than spaces and alphabet letters, return 'Not letters".
-
-- If the string is empty, just return the string itself.
-
-=end
-
-RSpec.describe 'Acronym Game' do
-  describe 'make_acronym' do
-    context 'when the given input is a string wxith letters' do
-      it 'returns the acronym' do
-        expected_output = 'H'
-        expect(make_acronym('Hello')).to eq(expected_output)
-      end
-    end
-    context 'when the given input is a single word' do
-      it 'returns the acronym' do
-        expected_output = 'W'
-        expect(make_acronym('World')).to eq(expected_output)
-      end
-    end
-    context 'when the given input is a string wxith multiple words' do
-      it 'returns the acronym' do
-        expected_output = 'HC'
-        expect(make_acronym('Hello Codewarrior')).to eq(expected_output)
-      end
-    end
-    context 'when the given input is a string wxith multiple words and spaces' do
-      it 'returns the acronym' do
-        expected_output = 'HC'
-        expect(make_acronym('  Hello   Codewarrior  ')).to eq(expected_output)
-      end
-    end
-
-    context 'when the given input is a string wxith multiple words' do
-      it 'returns the acronym' do
-        expected_output = 'HC'
-        expect(make_acronym('Hello Codewarrior')).to eq(expected_output)
-      end
-    end
-
-    context 'when the given input is a string wxith letters' do
-      it 'returns the acronym' do
-        expected_output = 'HC'
-        expect(make_acronym('Hello codewarrior')).to eq(expected_output)
-      end
-    end
-
-    context 'when the given input is not a string' do
-      it 'returns "Not a string"' do
-        expect(make_acronym(42)).to eq('Not a string')
-        expect(make_acronym([2, 12])).to eq('Not a string')
-        expect(make_acronym({ name: 'Abraham' })).to eq('Not a string')
-      end
-    end
-
-    context 'when the given input is a string wxith non-letter characters' do
-      it 'returns "Not letters"' do
-        expect(make_acronym('a42')).to eq('Not letters')
-      end
-    end
-
-    context 'when the given input is an empty string' do
-      it 'returns an empty string' do
-        expect(make_acronym('')).to eq('')
-      end
-    end
+require 'minitest/autorun'
+require_relative 'acronym'
+class AcronymTest < Minitest::Test
+  def test_basic
+    # skip
+    assert_equal "PNG", Acronym.abbreviate('Portable Network Graphics')
+  end
+  def test_lowercase_words
+    skip
+    assert_equal "ROR", Acronym.abbreviate('Ruby on Rails')
+  end
+  def test_punctuation
+    skip
+    assert_equal "FIFO", Acronym.abbreviate('First In, First Out')
+  end
+  def test_all_caps_word
+    skip
+    assert_equal "GIMP", Acronym.abbreviate('GNU Image Manipulation Program')
+  end
+  def test_punctuation_without_whitespace
+    skip
+    assert_equal "CMOS", Acronym.abbreviate('Complementary metal-oxide semiconductor')
+  end
+  def test_very_long_abbreviation
+    skip
+    assert_equal "ROTFLSHTMDCOALM",
+      Acronym.abbreviate('Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me')
+  end
+  def test_consecutive_delimiters
+    skip
+    assert_equal "SIMUFTA", Acronym.abbreviate('Something - I made up from thin air')
   end
 end
