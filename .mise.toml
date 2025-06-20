@@ -16,6 +16,8 @@ VISUAL = "code"
 # Ruby settings
 BUNDLE_PATH = "vendor/bundle"
 BUNDLE_BIN = "vendor/bundle/bin"
+GEM_HOME = "${HOME}/.gem/ruby/3.4.0"
+GEM_PATH = "${HOME}/.gem/ruby/3.4.0"
 
 # Node.js settings
 NODE_ENV = "development"
