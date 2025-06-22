@@ -17,7 +17,7 @@ class AssemblyLine
         success_rate = 0.0
     end
         
-    success_rate * (@speed * 221.0)
+    success_rate * (@speed * BASE_PRODUCTION_RATE_PER_SPEED_UNIT)
   end
   
   def working_items_per_minute
